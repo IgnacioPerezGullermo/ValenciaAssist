@@ -44,9 +44,11 @@ export const NavBar = () => {
                 id="basic-nav-dropdown"
                 color={'#08bd9a'}
               >
-                <NavDropdown.Item href="#action/3.1" className="navLinksDrop">
-                  Cursos y formaciones
-                </NavDropdown.Item>
+                <Link to="/Cursos">
+                  <NavDropdown.Item href="#action/3.1" className="navLinksDrop">
+                    Cursos y formaciones
+                  </NavDropdown.Item>
+                </Link>
                 <NavDropdown.Item href="#action/3.2" className="navLinksDrop">
                   Citas de salud virtuales
                 </NavDropdown.Item>
