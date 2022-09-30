@@ -1,0 +1,30 @@
+@import "../../css/index.scss";
+
+.HomeFooter-container{
+    background-color: $grey0;
+    width: 100vw;
+    height: 20vh;
+    position: absolute;
+    top: 187%;
+    left: 0%;
+    display: flex;
+    .HomeFooter-container-dataBox{
+        width: 25vw;
+        text-align: center;
+        h2{
+            font-family: $main-font;
+            font-weight: 600;
+            font-size: $font-size7;
+            margin-top: 3vh;
+            color: $color2;
+            margin-bottom: 2vh;
+        }
+        h3{
+            font-family: $main-font;
+            font-weight: 500;
+            font-size: $font-size2;
+            margin-top: 0vh;
+            color: $color1; 
+        }
+    }
+}

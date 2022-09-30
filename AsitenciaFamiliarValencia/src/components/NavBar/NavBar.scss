@@ -1,0 +1,32 @@
+@import "../../css/index.scss";
+
+.navbar{
+    width: 99.8vw;
+    position: fixed;
+    height: 14vh;
+    z-index: 100;
+    top: 0%;
+    left: 0%;
+    .navbar-container{
+        margin-left: 1vw;
+    }
+    .navLogo{
+        width: 19vw;
+    }
+    .me-auto{
+        position:absolute;
+        right: 5%;
+        .navLinks{
+            margin-left: 2vw;
+            font-weight: 600;
+            color: $color1;
+        }
+        .navLinksDrop{
+            font-weight: 600;
+            color: $color1;
+        }
+        #basic-nav-dropdown{
+            color: $color1;
+        }
+    }
+}
