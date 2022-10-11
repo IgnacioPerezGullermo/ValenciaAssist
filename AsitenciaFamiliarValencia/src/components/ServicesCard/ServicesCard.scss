@@ -13,15 +13,19 @@
         text-align: center;
         width: 50vw;    
         margin-left: 3vw;
-        color: $color3;
+        background-color: transparent;
+        color: $color2;
         border: none;
+        overflow: hidden;
         .ServicesCard-container-Card-Header-Item{
             width: 14vw;
             height: 5vh;
             font-size: $font-size1;
-        }
-        .active{
-            color: $color2;
+            .active{
+                color: $color1 !important;
+                background-color: $color4;
+                
+            }
         }
     }
     .ServicesCard-container-Card{

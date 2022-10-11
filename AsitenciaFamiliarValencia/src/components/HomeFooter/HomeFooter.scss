@@ -2,12 +2,13 @@
 
 .HomeFooter-container{
     background-color: $grey0;
-    width: 100vw;
+    width: 99.9vw;
     height: 20vh;
     position: absolute;
-    top: 187%;
+    top: 260%;
     left: 0%;
     display: flex;
+    z-index: 5;
     .HomeFooter-container-dataBox{
         width: 25vw;
         text-align: center;

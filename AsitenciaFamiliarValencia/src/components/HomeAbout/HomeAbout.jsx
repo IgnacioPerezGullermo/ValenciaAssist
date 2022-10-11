@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Fade, Modal, Button } from 'react-bootstrap';
-import Picture from '../../assets/hero-img23.png';
+import Team from '../../assets/about-cover.jpg';
 import ModalAbout from '../ModalAbout/ModalAbout';
 import './HomeAbout.scss';
 
@@ -59,7 +59,7 @@ export const HomeAbout = () => {
         <div className="HomeAbout-container-rightSide">
           <img
             className="HomeAbout-container-picture"
-            src={Picture}
+            src={Team}
             alt="Foto about"
           />
         </div>

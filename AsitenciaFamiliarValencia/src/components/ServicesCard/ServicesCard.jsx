@@ -184,7 +184,7 @@ export const ServicesCard = () => {
               {/* <h1>{infor.title}</h1>
               <h4>{infor.subtitle}</h4>
               <p>{infor.desc}</p> */}
-              <Button>Solicita mas informacion</Button>
+              <Button>Solicita presupuesto</Button>
             </Card.Text>
           </Card.Body>
         </Card>
