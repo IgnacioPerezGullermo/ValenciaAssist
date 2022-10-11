@@ -14,6 +14,14 @@
     top: -4%;
     left: 47%;
     transition: 1500ms;
+    opacity: 0;
+}
+.HomeStaff-container-leftSide-Silvia-Ent{
+    position: absolute;
+    top: -4%;
+    left: 17%;
+    transition: 1500ms;
+    display: none;
 }
 .HomeStaff-container-leftSide-TextBox{
     width: 40vw;
@@ -52,4 +60,4 @@
     color: $color2 ;
     transition: 1500ms;
 
-}
+} 

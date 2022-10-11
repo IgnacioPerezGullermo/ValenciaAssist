@@ -12,15 +12,15 @@ export const StaffCard = ({ setFocus, Focus, data, side, pic }) => {
       setFocus(info);
     }
   };
+  const props7 = useSpring({
+    to: { opacity: 1 },
+    from: { opacity: 0 },
+  });
   const props6 = useSpring({
-    to: {
-      width: '40vw',
-      marginRight: '10vw',
-      top: '30%',
-      left: '60%',
-      textAling: 'left',
-    },
-    from: { width: '29vw', marginRight: '0vw' },
+    to: { opacity: 1 },
+    from: { opacity: 0 },
+    reset: true,
+    reverse: false,
   });
   const props5 = useSpring({
     to: {
@@ -32,8 +32,8 @@ export const StaffCard = ({ setFocus, Focus, data, side, pic }) => {
     from: { width: '29vw', right: '-10%' },
   });
   const props4 = useSpring({
-    to: { scale: 1.2, left: '15%' },
-    from: { scale: 1 },
+    to: { scale: 1.2, left: '15%', opacity: 1 },
+    from: { scale: 1, opacity: 0 },
   });
   const props4alt = useSpring({
     to: { scale: 1.2, left: '70%' },
@@ -60,7 +60,7 @@ export const StaffCard = ({ setFocus, Focus, data, side, pic }) => {
   if (Focus === data.name || Focus === '') {
     return (
       <animated.div
-        style={Focus === data.name ? props2 : null}
+        style={Focus === data.name ? props2 : props6}
         className={
           side === 'left'
             ? 'HomeStaff-container-leftSide'
@@ -69,7 +69,7 @@ export const StaffCard = ({ setFocus, Focus, data, side, pic }) => {
       >
         {Focus === 'silvia' ? (
           <animated.img
-            style={Focus === 'silvia' ? props4 : null}
+            style={Focus === 'silvia' ? props4 : props7}
             className={
               side === 'left'
                 ? 'HomeStaff-container-leftSide-Silvia'
@@ -80,7 +80,7 @@ export const StaffCard = ({ setFocus, Focus, data, side, pic }) => {
           />
         ) : (
           <animated.img
-            style={Focus === 'caterina' ? props4alt : null}
+            style={Focus === 'caterina' ? props4alt : props7}
             className={
               side === 'left'
                 ? 'HomeStaff-container-leftSide-Silvia'
