@@ -10,7 +10,7 @@ import './NavBar.scss';
 export const NavBar = () => {
   return (
     <>
-      <Navbar bg="light" expand="lg" className="navbar">
+      <Navbar expand="md" className="navbar">
         <Container className="navbar-container">
           <Navbar.Brand href="#home">
             <img className="navLogo" src={Logo} alt="logo"></img>

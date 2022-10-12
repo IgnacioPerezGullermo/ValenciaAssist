@@ -1,12 +1,13 @@
 @import "../../css/index.scss";
 
 .navbar{
-    width: 99.8vw;
+    width: 100vw;
     position: fixed;
-    height: 14vh;
+    height: 12vh;
     z-index: 100;
     top: 0%;
     left: 0%;
+    background-color: rgba(241, 241, 241, 0.942);
     .navbar-container{
         margin-left: 1vw;
     }
