@@ -1,0 +1,15 @@
+{
+  "projectId": "prj_brPUiepJEvo1YHImxLD6kQhMCYi1",
+  "orgId": "QTBzzWFxUBV49E41ivxQMfd3",
+  "settings": {
+    "createdAt": 1664507772761,
+    "framework": "vite",
+    "devCommand": null,
+    "installCommand": null,
+    "buildCommand": null,
+    "outputDirectory": null,
+    "rootDirectory": "AsitenciaFamiliarValencia",
+    "directoryListing": false,
+    "nodeVersion": "16.x"
+  }
+}
