@@ -4,10 +4,14 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './NavBar.scss';
 
 export const NavBar = () => {
+  const navigate = useNavigate();
+  const handleClick = (place) => {
+    navigate(`/${place}`);
+  };
   return (
     <>
       <Navbar expand="md" className="navbar">
@@ -18,8 +22,13 @@ export const NavBar = () => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link className="navLinks">
-                <Link to="/">Inicio</Link>
+              <Nav.Link
+                className="navLinks"
+                onClick={() => {
+                  handleClick('');
+                }}
+              >
+                Inicio
               </Nav.Link>
               <NavDropdown
                 className="navLinks"
@@ -27,16 +36,22 @@ export const NavBar = () => {
                 id="basic-nav-dropdown"
                 color={'#08bd9a'}
               >
-                <Link to="/ServiciosFamilia">
-                  <NavDropdown.Item href="#action/3.1" className="navLinksDrop">
-                    Para Familias
-                  </NavDropdown.Item>
-                </Link>
-                <Link to="/ServiciosEmpresas">
-                  <NavDropdown.Item href="#action/3.2" className="navLinksDrop">
-                    Para Empresas
-                  </NavDropdown.Item>
-                </Link>
+                <NavDropdown.Item
+                  className="navLinksDrop"
+                  onClick={() => {
+                    handleClick('ServiciosFamilia');
+                  }}
+                >
+                  Para Familias
+                </NavDropdown.Item>
+                <NavDropdown.Item
+                  className="navLinksDrop"
+                  onClick={() => {
+                    handleClick('ServiciosEmpresas');
+                  }}
+                >
+                  Para Empresas
+                </NavDropdown.Item>
               </NavDropdown>
               <NavDropdown
                 className="navLinks"
@@ -44,16 +59,25 @@ export const NavBar = () => {
                 id="basic-nav-dropdown"
                 color={'#08bd9a'}
               >
-                <Link to="/Cursos">
-                  <NavDropdown.Item href="#action/3.1" className="navLinksDrop">
-                    Cursos y formaciones
-                  </NavDropdown.Item>
-                </Link>
+                <NavDropdown.Item
+                  className="navLinksDrop"
+                  onClick={() => {
+                    handleClick('Cursos');
+                  }}
+                >
+                  Cursos y formaciones
+                </NavDropdown.Item>
+
                 <NavDropdown.Item href="#action/3.2" className="navLinksDrop">
                   Citas de salud virtuales
                 </NavDropdown.Item>
               </NavDropdown>
-              <Nav.Link className="navLinks" href="#link">
+              <Nav.Link
+                className="navLinks"
+                onClick={(e) => {
+                  handleClick('Contacto');
+                }}
+              >
                 Contacto
               </Nav.Link>
             </Nav>
