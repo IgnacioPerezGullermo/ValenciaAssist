@@ -1,15 +1,13 @@
-import React, { useState, useRef } from 'react';
-import {
-  FormControl,
-  Form,
-  FormLabel,
-  Button,
-  Tooltip,
-  Overlay,
-} from 'react-bootstrap';
+import { send } from 'emailjs-com';
+import React, { useRef, useState } from 'react';
+import { Button, Form, FormControl, Overlay, Tooltip } from 'react-bootstrap';
+import Toast from 'react-bootstrap/Toast';
+import ToastContainer from 'react-bootstrap/ToastContainer';
 import './ContactoMain.scss';
+import logo from '../../assets/valencia.png';
 
 export const ContactoMain = () => {
+  const [Disabled, setDisabled] = useState(true);
   const [Input, setInput] = useState({
     nombre: '',
     email: '',
@@ -17,7 +15,13 @@ export const ContactoMain = () => {
     asunto: '',
     desc: '',
   });
-  const [FormError, setFormError] = useState({});
+  const [FormError, setFormError] = useState({
+    nombre: 'Completa aqui',
+    email: 'Completa aqui',
+    empresa: 'Completa aqui',
+    asunto: 'Completa aqui',
+    desc: 'Completa aqui',
+  });
   const [show, setShow] = useState({
     nombre: false,
     email: false,
@@ -25,6 +29,9 @@ export const ContactoMain = () => {
     asunto: false,
     desc: false,
   });
+  const [showToastSuccess, setShowToastSuccess] = useState(false);
+  const [showToastError, setShowToastError] = useState(false);
+
   const targetNombre = useRef();
   const targetEmail = useRef();
   const targetEmpresa = useRef();
@@ -32,8 +39,10 @@ export const ContactoMain = () => {
   const targetDesc = useRef();
 
   function exists(str) {
-    if (!str) return true;
-    return false;
+    if (str === undefined) {
+      return false;
+    }
+    if (str.length > 0) return true;
   }
   function validName(str) {
     if (str.length < 4 || str.length > 30) return true;
@@ -86,16 +95,79 @@ export const ContactoMain = () => {
   const handleChange = (e) => {
     setInput({ ...Input, [e.target.name]: e.target.value });
     setFormError(validate({ ...Input, [e.target.name]: e.target.value }));
+    setTimeout(() => {
+      if (
+        exists(Input.nombre) &&
+        exists(Input.email) &&
+        exists(Input.empresa) &&
+        exists(Input.asunto) &&
+        exists(Input.desc)
+      ) {
+        setDisabled(false);
+      }
+      if (
+        exists(FormError.nombre) ||
+        exists(FormError.email) ||
+        exists(FormError.empresa) ||
+        exists(FormError.asunto) ||
+        exists(FormError.desc)
+      ) {
+        setDisabled(true);
+      }
+    }, 1000);
   };
   const handleShow = (e) => {
     console.log(show[e.target.name]);
     if (show[e.target.name] === false) {
       setShow({ ...show, [e.target.name]: true });
     } else {
-      setShow(...show, ([e.target.name] = false));
+      setShow({ ...show, [e.target.name]: false });
     }
   };
-  const handleSubmit = (e) => {};
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (
+      exists(Input.nombre) &&
+      exists(Input.email) &&
+      exists(Input.empresa) &&
+      exists(Input.asunto) &&
+      exists(Input.desc) &&
+      !exists(FormError.nombre) &&
+      !exists(FormError.email) &&
+      !exists(FormError.empresa) &&
+      !exists(FormError.asunto) &&
+      !exists(FormError.desc)
+    ) {
+      const toSend = {
+        to_name: 'Valencia Assist',
+        from_name: Input.nombre,
+        from_email: Input.email,
+        from_empresa: Input.empresa,
+        message: Input.desc,
+        from_asunto: Input.asunto,
+      };
+      send('service_ij860q9', 'contact_form', toSend, 'hUXrAnQwoTXnULHls')
+        .then((response) => {
+          console.log('SUCCESS!', response.status, response.text);
+        })
+        .catch((err) => {
+          console.log('FAILED...', err);
+        });
+      setInput({
+        nombre: '',
+        email: '',
+        empresa: '',
+        asunto: '',
+        desc: '',
+      });
+      setShowToastSuccess(true);
+      setDisabled(true);
+    } else {
+      // alert('Alguno de los campos esta incompleto o es invalido');
+      setShowToastError(true);
+      setDisabled(true);
+    }
+  };
 
   return (
     <div className="Contacto-container">
@@ -247,12 +319,60 @@ export const ContactoMain = () => {
           ) : (
             false
           )}
-          <Button className="Form-submit-btn" onClick={(e) => {}}>
+          <button
+            className="Form-submit-btn"
+            onClick={(e) => {
+              handleSubmit(e);
+            }}
+            style={
+              !Disabled
+                ? { backgroundColor: '#d98721', color: 'black' }
+                : { backgroundColor: 'grey', color: 'white' }
+            }
+            disabled={Disabled}
+          >
             Enviar
-          </Button>
+          </button>
         </Form>
       </div>
-      <div className="Contacto-container-rightside"></div>
+      <div className="Contacto-container-rightside">
+        <ToastContainer position="bottom-end" className="m-2">
+          <Toast
+            onClose={() => setShowToastSuccess(false)}
+            show={showToastSuccess}
+            delay={4000}
+            autohide
+          >
+            <Toast.Header>
+              <img src={logo} className="rounded me-2 logo-shape" alt="" />
+              <strong className="me-auto">Valencia Assist</strong>
+              <small>Hace un momento</small>
+            </Toast.Header>
+            <Toast.Body className="toast-body">
+              Tu consulta se ha enviado correctamente. <br />
+              Pronto nos comunicaremos contigo!
+            </Toast.Body>
+          </Toast>
+        </ToastContainer>
+        <ToastContainer position="bottom-end" className="m-2">
+          <Toast
+            onClose={() => setShowToastError(false)}
+            show={showToastError}
+            delay={4000}
+            autohide
+          >
+            <Toast.Header>
+              <img src={logo} className="rounded me-2 logo-shape" alt="" />
+              <strong className="me-auto">Valencia Assist</strong>
+              <small>Hace un momento</small>
+            </Toast.Header>
+            <Toast.Body className="toast-body">
+              Alguno de los campos esta incompleto o es invalido. <br />
+              Intenta nuevamente.
+            </Toast.Body>
+          </Toast>
+        </ToastContainer>
+      </div>
     </div>
   );
 };
