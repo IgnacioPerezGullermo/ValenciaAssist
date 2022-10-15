@@ -1,11 +1,14 @@
 @import "../../css/index.scss";
 
 .HomeIntro-container{
-    width: 100vw;
+    width: 99vw;
     height: 86vh;
     position: absolute;
     left: 0%;
     top:12%;
+    margin-right: 0vw;
+    padding-right: 0vw;
+    overflow: hidden;
 }
 .HomeIntro-container-sidebar{
     width: 25vw;
@@ -39,7 +42,7 @@
     left: 25%;
     top:0%;
     img{
-        width: 100%;
+        width: 75vw;
         height: 100%;
         
 

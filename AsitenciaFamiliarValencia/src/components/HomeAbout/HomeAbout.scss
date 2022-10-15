@@ -2,13 +2,15 @@
 
 
 .HomeAbout-container{
-    width: 100vw;
+    width: 99vw;
     height: 87vh;
     position: absolute;
     top: 98%;
     left: 0%;
-    background-color: white;
-    border: none;
+    margin-right: 0vw;
+    padding-right: 0vw;
+    background-color: $grey0;
+    overflow: hidden;
     .HomeAbout-container-leftSide{
         width:49vw;
         height: 100%;
@@ -55,7 +57,7 @@
         }
     }
     .HomeAbout-container-rightSide{
-        width:49vw;
+        width:48vw;
         height: 100%;
         position: absolute;
         left: 50%;

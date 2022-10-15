@@ -2,10 +2,13 @@
 
 .HomeStaff-container{
     height: 77vh;
-    width: 100vw;
+    width: 99vw;
     position:absolute;
     top: 186%;
-    left: 0;
+    left: 0%;
+    margin-right: 0vw;
+    padding-right: 0vw;
+    overflow: hidden;
     background-color: $color1 ;
 
     

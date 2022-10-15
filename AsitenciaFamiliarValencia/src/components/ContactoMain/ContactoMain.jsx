@@ -1,5 +1,12 @@
-import React, { useState } from 'react';
-import { FormControl, Form, FormLabel, Button, Tooltip } from 'react-bootstrap';
+import React, { useState, useRef } from 'react';
+import {
+  FormControl,
+  Form,
+  FormLabel,
+  Button,
+  Tooltip,
+  Overlay,
+} from 'react-bootstrap';
 import './ContactoMain.scss';
 
 export const ContactoMain = () => {
@@ -11,6 +18,18 @@ export const ContactoMain = () => {
     desc: '',
   });
   const [FormError, setFormError] = useState({});
+  const [show, setShow] = useState({
+    nombre: false,
+    email: false,
+    empresa: false,
+    asunto: false,
+    desc: false,
+  });
+  const targetNombre = useRef();
+  const targetEmail = useRef();
+  const targetEmpresa = useRef();
+  const targetAsunto = useRef();
+  const targetDesc = useRef();
 
   function exists(str) {
     if (!str) return true;
@@ -43,35 +62,22 @@ export const ContactoMain = () => {
   }
   function validate(data) {
     let errors = {};
-    if (!data.nombre) {
-      if (exists(data.nombre) === true) errors.nombre = 'Ingresa un nombre';
-    }
     if (data.nombre && validName(data.nombre) === true) {
       errors.nombre = 'El nombre ingresado no es valido';
     }
-    if (!data.email) {
-      if (exists(data.email) === true) errors.email = 'Ingresa un mail';
-    }
+
     if (data.email && validEmail(data.email) === true) {
       errors.email = 'El email tiene un formato incorrecto';
     }
-    if (!data.empresa) {
-      if (exists(data.empresa) === true)
-        errors.empresa === 'Ingresa el nombre de tu empresa';
-    }
+
     if (data.empresa && validCompany(data.empresa) === true) {
       errors.empresa = 'El nombre de la empresa es invalido';
     }
-    if (!data.asunto) {
-      if (exists(data.asunto) === true)
-        errors.email = 'Añade un asunto para tu consulta';
-    }
+
     if (data.asunto && validTopic(data.asunto) === true) {
       errors.asunto = 'El asunto de tu consulta tiene un formato incorrecto';
     }
-    if (!data.desc) {
-      if (exists(data.desc) === true) errors.desc = 'Añade un texto';
-    }
+
     if (data.desc && validDesc(data.desc) === true) {
       errors.desc = 'Añade un texto mas largo/corto';
     }
@@ -81,107 +87,172 @@ export const ContactoMain = () => {
     setInput({ ...Input, [e.target.name]: e.target.value });
     setFormError(validate({ ...Input, [e.target.name]: e.target.value }));
   };
+  const handleShow = (e) => {
+    console.log(show[e.target.name]);
+    if (show[e.target.name] === false) {
+      setShow({ ...show, [e.target.name]: true });
+    } else {
+      setShow(...show, ([e.target.name] = false));
+    }
+  };
+  const handleSubmit = (e) => {};
+
   return (
     <div className="Contacto-container">
-      <Form className="Contacto-Form">
-        <Form.Group className="mb-2">
-          <Form.Label>Nombre</Form.Label>
-          <Form.Control
-            type="text"
-            name="nombre"
-            value={Input.nombre}
-            onChange={(e) => {
-              handleChange(e);
-            }}
-            placeholder="Ej: Silvia Gutierrez"
-          ></Form.Control>
-        </Form.Group>
-        {FormError.nombre ? (
-          <span style={{ fontSize: '1vw', color: 'red', marginLeft: '1vw' }}>
-            {FormError.nombre}
-          </span>
-        ) : (
-          false
-        )}
-        <Form.Group className="mb-2">
-          <Form.Label>Email</Form.Label>
-          <Form.Control
-            type="email"
-            name="email"
-            value={Input.email}
-            onChange={(e) => {
-              handleChange(e);
-            }}
-            placeholder="Ej: Silvia Gutierrez"
-          ></Form.Control>
-        </Form.Group>
-        {FormError.email ? (
-          <span style={{ fontSize: '1vw', color: 'red', marginLeft: '1vw' }}>
-            {FormError.email}
-          </span>
-        ) : (
-          false
-        )}
-        <Form.Group className="mb-2">
-          <Form.Label>Empresa</Form.Label>
-          <Form.Control
-            type="text"
-            name="empresa"
-            value={Input.empresa}
-            onChange={(e) => {
-              handleChange(e);
-            }}
-            placeholder="Ej: Empresa Increible S.A."
-          ></Form.Control>
-        </Form.Group>
-        {FormError.empresa ? (
-          <span style={{ fontSize: '1vw', color: 'red', marginLeft: '1vw' }}>
-            {FormError.empresa}
-          </span>
-        ) : (
-          false
-        )}
-        <Form.Group className="mb-2">
-          <Form.Label>Asunto</Form.Label>
-          <Form.Control
-            type="text"
-            name="asunto"
-            value={Input.asunto}
-            onChange={(e) => {
-              handleChange(e);
-            }}
-            placeholder="Ej: Clases de Yoga"
-          ></Form.Control>
-        </Form.Group>
-        {FormError.asunto ? (
-          <span style={{ fontSize: '1vw', color: 'red', marginLeft: '1vw' }}>
-            {FormError.asunto}
-          </span>
-        ) : (
-          false
-        )}
-        <Form.Group className="mb-2">
-          <Form.Label>Consulta</Form.Label>
-          <Form.Control
-            as="textarea"
-            name="desc"
-            value={Input.desc}
-            onChange={(e) => {
-              handleChange(e);
-            }}
-            className="Form-Textarea"
-            placeholder="Escribi aca tu consulta!"
-          ></Form.Control>
-        </Form.Group>
-        {FormError.desc ? (
-          <span style={{ fontSize: '1vw', color: 'red', marginLeft: '1vw' }}>
-            {FormError.desc}
-          </span>
-        ) : (
-          false
-        )}
-        <Button className="Form-submit-btn">Enviar</Button>
-      </Form>
+      <div className="Contacto-container-leftside">
+        <Form className="Contacto-Form">
+          <Form.Group className="mb-2">
+            <Form.Label>Nombre</Form.Label>
+            <Form.Control
+              ref={targetNombre}
+              type="text"
+              name="nombre"
+              value={Input.nombre}
+              onBlur={(e) => handleShow(e)}
+              onChange={(e) => {
+                handleChange(e);
+              }}
+              placeholder="Ej: Silvia Gutierrez"
+            ></Form.Control>
+          </Form.Group>
+          {FormError.nombre ? (
+            <Overlay
+              target={targetNombre.current}
+              show={show.nombre}
+              placement="bottom"
+            >
+              {(props) => (
+                <Tooltip className="bootstrap-tooltip" id="overlay" {...props}>
+                  {FormError.nombre}
+                </Tooltip>
+              )}
+            </Overlay>
+          ) : (
+            false
+          )}
+          <Form.Group className="mb-2">
+            <Form.Label>Email</Form.Label>
+            <Form.Control
+              ref={targetEmail}
+              type="email"
+              name="email"
+              value={Input.email}
+              onBlur={(e) => handleShow(e)}
+              onChange={(e) => {
+                handleChange(e);
+              }}
+              placeholder="Ej: Silvia Gutierrez"
+            ></Form.Control>
+          </Form.Group>
+          {FormError.email ? (
+            <Overlay
+              target={targetEmail.current}
+              show={show.email}
+              placement="bottom"
+            >
+              {(props) => (
+                <Tooltip className="bootstrap-tooltip" id="overlay" {...props}>
+                  {FormError.email}
+                </Tooltip>
+              )}
+            </Overlay>
+          ) : (
+            false
+          )}
+          <Form.Group className="mb-2">
+            <Form.Label>Empresa</Form.Label>
+            <Form.Control
+              ref={targetEmpresa}
+              onBlur={(e) => handleShow(e)}
+              type="text"
+              name="empresa"
+              value={Input.empresa}
+              onChange={(e) => {
+                handleChange(e);
+              }}
+              placeholder="Ej: Empresa Increible S.A."
+            ></Form.Control>
+          </Form.Group>
+          {FormError.empresa ? (
+            <Overlay
+              target={targetEmpresa.current}
+              show={show.empresa}
+              placement="bottom"
+            >
+              {(props) => (
+                <Tooltip className="bootstrap-tooltip" id="overlay" {...props}>
+                  {FormError.empresa}
+                </Tooltip>
+              )}
+            </Overlay>
+          ) : (
+            false
+          )}
+          <Form.Group className="mb-2">
+            <Form.Label>Asunto</Form.Label>
+            <Form.Control
+              ref={targetAsunto}
+              onBlur={(e) => handleShow(e)}
+              type="text"
+              name="asunto"
+              value={Input.asunto}
+              onChange={(e) => {
+                handleChange(e);
+              }}
+              placeholder="Ej: Clases de Yoga"
+            ></Form.Control>
+          </Form.Group>
+          {FormError.asunto ? (
+            <Overlay
+              target={targetAsunto.current}
+              show={show.asunto}
+              placement="bottom"
+            >
+              {(props) => (
+                <Tooltip className="bootstrap-tooltip" id="overlay" {...props}>
+                  {FormError.asunto}
+                </Tooltip>
+              )}
+            </Overlay>
+          ) : (
+            false
+          )}
+          <Form.Group className="mb-2">
+            <Form.Label>Consulta</Form.Label>
+            <Form.Control
+              as="textarea"
+              name="desc"
+              ref={targetDesc}
+              value={Input.desc}
+              onBlur={(e) => handleShow(e)}
+              onChange={(e) => {
+                handleChange(e);
+              }}
+              className="Form-Textarea"
+              placeholder="Escribi aca tu consulta!"
+            ></Form.Control>
+          </Form.Group>
+          {FormError.desc ? (
+            <Overlay
+              target={targetDesc.current}
+              show={show.desc}
+              placement="bottom"
+            >
+              {(props) => (
+                <Tooltip className="bootstrap-tooltip" id="overlay" {...props}>
+                  {FormError.desc}
+                </Tooltip>
+              )}
+            </Overlay>
+          ) : (
+            false
+          )}
+          <Button className="Form-submit-btn" onClick={(e) => {}}>
+            Enviar
+          </Button>
+        </Form>
+      </div>
+      <div className="Contacto-container-rightside"></div>
     </div>
   );
 };

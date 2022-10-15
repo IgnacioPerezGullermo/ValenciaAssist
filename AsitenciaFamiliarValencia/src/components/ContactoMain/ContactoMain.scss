@@ -2,26 +2,48 @@
 
 .Contacto-container{
     //border: 1px solid black;
-    width: 99.9vw;
+    width: 100vw;
     height: 88vh;
     position: absolute;
     left: 0%;
     top: 12%;
-    background-image: url("../../assets/enfermeria3.jpg");
-    background-size: cover;
-    background-repeat: no-repeat;
+    overflow: hidden;
+    margin-right: 0vw;
+    padding-right: 0vw;
+    .Contacto-container-leftside{
+        //border: 1px solid black;
+        position: absolute;
+        top: 0%;
+        width: 40vw;
+        height: 88vh;
+        background-color: $grey1;
+    }
+    .Contacto-container-rightside{
+        //border: 1px solid black;
+        position: absolute;
+        top: 0%;
+        left: -10%;
+        background-image: url("../../assets/enfermeria2.png");
+        background-size: cover;
+        background-repeat: no-repeat;
+        width: 60vw;
+        height: 88vh;
+        background-color: red;
+        margin-left: 50vw; 
+    }
     .Contacto-Form{
         text-align: left;
-
-        width: 40vw;
-        margin-left: 5vw;
+        width: 36vw;
+        margin-left: 2vw;
         margin-top: 5vh;
         padding: 2vh 3vh;
         border-radius: 2vw;
-        background-color: $grey2;
+
     }
     .Form-submit-btn{
-        width: 8vw;
+        width: 10vw;
+        margin-left: 10vw;
+        margin-top: 2vh;
         background-color: $color2;
         border: none;
     }
@@ -29,4 +51,13 @@
         min-height: 20vh;
         max-height: 35vh;
     }
+}
+.tooltip{
+    --bs-tooltip-bg: #d98721;
+    --bs-tooltip-max-width: 30vw;
+    margin-left: 6vw;
+}
+.bootstrap-tooltip{
+    //width: 30vw;
+
 }

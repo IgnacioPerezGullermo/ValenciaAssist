@@ -25,7 +25,7 @@ export const StaffCard = ({ setFocus, Focus, data, side, pic }) => {
   const props5 = useSpring({
     to: {
       width: '40vw',
-      top: '30%',
+      top: '20%',
       right: '30%',
       textAlign: 'right',
     },
@@ -42,7 +42,7 @@ export const StaffCard = ({ setFocus, Focus, data, side, pic }) => {
   const props3 = useSpring({
     to: {
       width: '30vw',
-      top: '30%',
+      top: '20%',
       left: '45%',
       opacity: 1,
       textAlign: 'left',
