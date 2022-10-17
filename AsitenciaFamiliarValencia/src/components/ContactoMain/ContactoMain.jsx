@@ -1,18 +1,22 @@
 import { send } from 'emailjs-com';
 import React, { useRef, useState } from 'react';
 import { Button, Form, FormControl, Overlay, Tooltip } from 'react-bootstrap';
+import { useLocation } from 'react-router-dom';
 import Toast from 'react-bootstrap/Toast';
 import ToastContainer from 'react-bootstrap/ToastContainer';
 import './ContactoMain.scss';
 import logo from '../../assets/valencia.png';
 
 export const ContactoMain = () => {
+  const { search } = useLocation();
+  const topic = search.slice(8, 50).replace('%20', ' ');
+  //console.log(search.slice(8, 50).replace('%20', ' '));
   const [Disabled, setDisabled] = useState(true);
   const [Input, setInput] = useState({
     nombre: '',
     email: '',
     empresa: '',
-    asunto: '',
+    asunto: topic ? topic : '',
     desc: '',
   });
   const [FormError, setFormError] = useState({

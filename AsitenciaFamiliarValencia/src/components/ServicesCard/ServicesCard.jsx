@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
 import { Card, Nav, Button, Collapse } from 'react-bootstrap';
 import Adultos from '../../assets/adultos-mayores.png';
+import Infancia from '../../assets/infancia.png';
+import NewFamily from '../../assets/embarazo.png';
 import { motion } from 'framer-motion';
 import './ServicesCard.scss';
+import { SingleService } from './SingleService';
 
 const info = {
   adults: {
     title: 'Adultos Mayores',
     desc: 'La atención en el domicilio de un adulto mayor dependiente constituye el mejor ámbito de asistencia. La seguridad que brinda la propia casa, la familiaridad en el espacio y su comodidad crean el marco ideal, donde nuestro personal de asistencia cubrirá todas las necesidades que requiera el cliente...',
+    img: Adultos,
     services: [
       {
         name: 'Acompañamientos médicos ambulatorios (desde domicilio/residencia)',
@@ -35,6 +39,7 @@ const info = {
     title: 'Infancias y Adolescencia',
     subtitle: 'Etapa fundamental en la vida de las personas',
     desc: 'Es durante la infancia que se desarrolla su potencial, su salud tanto física como emocional para a vida adulta. Por ello, es una etapa fundamental en la vida de las personas. Así como, una infancia sana y feliz en un ambiente acogedor genera a un adulto integro...',
+    img: Infancia,
     services: [
       {
         name: 'Servicio de Canguro (en el idioma que prefieras)',
@@ -68,6 +73,7 @@ const info = {
     title: 'New Family',
     subtitle: 'Acompañamiento a personas gestantes',
     desc: 'Nuestro servicio dirigido exclusivamente a la mujer embarazada, persona gestante y nuevas familias abarca todo tipo de asistencia, contención, información, actividades que una mujer y en consecuencia su entorno, necesitan en este período tan importante...',
+    img: NewFamily,
     services: [
       {
         name: 'Doulas (online o presencial)',
@@ -106,12 +112,6 @@ export const ServicesCard = () => {
     setTimeout(function () {
       setContent(e.target.name);
     });
-    // setTimeout(function () {
-    //   setOpen(!open);
-    // }, 3000);
-    // if (open === 'true') {
-    //   setOpen(!open);
-    // }
   };
   var infor = '';
   if (Content === 'adults') {
@@ -125,7 +125,7 @@ export const ServicesCard = () => {
 
   return (
     <div className="ServicesCard-container">
-      <Nav
+      {/* <Nav
         variant="tabs"
         defaultActiveKey="#first"
         className="ServicesCard-container-Card-Header"
@@ -163,9 +163,9 @@ export const ServicesCard = () => {
             {info.newBorn.title}
           </Nav.Link>
         </Nav.Item>
-      </Nav>
+      </Nav> */}
       <Collapse in={open} dimension="width">
-        <Card className="ServicesCard-container-Card">
+        {/* <Card className="ServicesCard-container-Card">
           <Card.Body className="ServicesCard-container-Card-Body">
             <Card.Title>
               <img
@@ -183,11 +183,31 @@ export const ServicesCard = () => {
               </ul>
               {/* <h1>{infor.title}</h1>
               <h4>{infor.subtitle}</h4>
-              <p>{infor.desc}</p> */}
+              <p>{infor.desc}</p> 
               <Button>Solicita presupuesto</Button>
             </Card.Text>
           </Card.Body>
-        </Card>
+        </Card> */}
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <SingleService
+            title={info.adults.title}
+            services={info.adults.services}
+            desc={info.adults.desc}
+            img={info.adults.img}
+          />
+          <SingleService
+            title={info.child.title}
+            services={info.child.services}
+            desc={info.child.desc}
+            img={info.child.img}
+          />
+          <SingleService
+            title={info.newBorn.title}
+            services={info.newBorn.services}
+            desc={info.newBorn.desc}
+            img={info.newBorn.img}
+          />
+        </div>
       </Collapse>
     </div>
   );

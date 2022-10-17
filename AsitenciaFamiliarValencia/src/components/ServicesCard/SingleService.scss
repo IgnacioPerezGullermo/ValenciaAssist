@@ -1,0 +1,70 @@
+@import "../../css/index.scss";
+
+.SingleService-Container{
+    position: relative;
+    top: 100%;
+    left: -13%;
+    width: 99.6vw;
+    height: 88vh;
+    color: white;
+    background-color: $grey0;
+    overflow: hidden;
+}
+.SingleService-Container-title{
+    // border: 1px solid black;
+    height: 9vh;
+    margin-top: 0vh;
+    text-align: left;
+    z-index: 20;
+    background-color: $color2;
+    position: absolute;
+    h1{
+        margin-top: 2vh;
+        margin-left: 4vw;
+        width: 96vw;
+        line-height: 4vh;
+        font-size: $font-size5;
+    }
+}
+.SingleService-Text{
+    color: black;
+    background-color: transparent;
+    width: 45vw;
+    height: 74vh;
+    text-align: left;
+    position: absolute;
+    top: 10%;
+    padding: 2vw 4vw;
+    z-index: 10;
+    p{
+        margin-top: 4vh;
+        width: 45vw;
+    }
+    li{
+        width: 45vw;
+    }
+    .SingleService-Button{
+        margin-left: 12vw;
+    }
+}
+.SingleService-Image{
+    background-color: $grey0;
+    width: 50vw;
+    position: absolute;
+    right: 8.03%;
+    z-index: 4;
+    top: 10%;
+    img{
+        width: 80vw;
+        height: 78vh;
+    }
+    
+}
+.SingleService-ImageCover{
+    background-image: linear-gradient(to left, rgba(255, 170, 0, 0), $grey0);
+
+    z-index: 4;
+    width: 80%;
+    height: 100%;
+    position: absolute;
+}
